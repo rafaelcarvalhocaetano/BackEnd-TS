@@ -1,7 +1,7 @@
 version: "3"
 service:
   api:
-    image: tadrianonet/api-ts
+    image: rcc/api-ts
     ports:
       - "5000:3050"
     links:
