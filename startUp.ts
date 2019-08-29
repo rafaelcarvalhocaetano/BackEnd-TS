@@ -8,6 +8,7 @@ import Database from './utils/Database';
 import NewsController from './controller/NewsController';
 import Auth from './auth/auth';
 import { TokenModel } from './models/TokenModel';
+import Upload from './upload/Upload';
 
 class StartUp {
 
@@ -25,6 +26,7 @@ class StartUp {
         this._db.createConnection();
         this.middler();
         this.routes();
+
     }
 
     private authenticationToken() {
@@ -55,6 +57,14 @@ class StartUp {
         this.app.route('/').get((req, res) => {
             res.send({versao : '0.0.1'});
         });
+        this.app.route('/file').post(Upload.single('file'), (req, res) => {
+            try {
+                res.send('Arquivo enviado com sucesso!!!!');
+            } catch (e) {
+                console.log(e);
+            }
+        });
+
         // AUTENTICAÇÃO
         this.app.use(Auth.validate);
         // rotas
