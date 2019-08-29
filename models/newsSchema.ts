@@ -9,6 +9,6 @@ const NewSchema = new Schema({
     publishDate: Date,
     link: String,
     active: String
-});
+}, {timestamps: true});
 
 export default NewSchema;
