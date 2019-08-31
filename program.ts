@@ -1,4 +1,4 @@
-import StatUp from './startUp';
+import StatUp from './StartUp';
 
 const port = process.env.PORT || '3050';
 

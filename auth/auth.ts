@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import Config from '../utils/config';
+import Config from '../utils/Config';
 
 class Auth {
     

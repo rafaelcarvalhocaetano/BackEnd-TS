@@ -6,7 +6,7 @@ import * as jwt from 'jsonwebtoken';
 
 import Database from './utils/Database';
 import NewsController from './controller/NewsController';
-import Auth from './auth/auth';
+import Auth from './auth/Auth';
 import { TokenModel } from './models/TokenModel';
 import Upload from './upload/Upload';
 
