@@ -1,7 +1,7 @@
 version: "3"
 service:
   api:
-    image: tadrianonet/api-ts
+    image: rafaelcarvalhocaetano/apinewsredis
     ports:
       - "5000:3050"
     links:
@@ -13,3 +13,5 @@ service:
       -"28017:28017"
     environment:
       - AUTH=no
+    redis:
+      image: 'redis'

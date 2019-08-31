@@ -5,9 +5,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const Database_1 = require("./utils/Database");
-const NewsController_1 = require("./controller/NewsController");
-const Auth_1 = require("./auth/Auth");
 const Upload_1 = require("./upload/Upload");
+const Router_1 = require("./router/Router");
 class StartUp {
     constructor() {
         this.authenticationToken();
@@ -15,6 +14,7 @@ class StartUp {
         console.log(' data ', this.token);
         this.app = express();
         this._db = new Database_1.default();
+        this.router = new Router_1.default().routerLisk;
         this._db.createConnection();
         this.middler();
         this.routes();
@@ -53,13 +53,8 @@ class StartUp {
             }
         });
         // AUTENTICAÇÃO
-        this.app.use(Auth_1.default.validate);
-        // rotas
-        this.app.route('/api/news').get(NewsController_1.default.get);
-        this.app.route('/api/news/:id').get(NewsController_1.default.getById);
-        this.app.route('/api/news').post(NewsController_1.default.create);
-        this.app.route('/api/news/:id').put(NewsController_1.default.update);
-        this.app.route('/api/news/:id').delete(NewsController_1.default.delete);
+        // this.app.use(Auth.validate);
+        this.app.use('/', this.router);
     }
 }
 exports.default = new StartUp();

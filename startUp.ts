@@ -4,14 +4,16 @@ import * as cors from 'cors';
 import * as jwt from 'jsonwebtoken';
 
 import Database from './utils/Database';
-import NewsController from './controller/NewsController';
+// import NewsController from './controller/NewsController';
 import Auth from './auth/Auth';
 import { TokenModel } from './models/TokenModel';
 import Upload from './upload/Upload';
+import Router from './router/Router';
 
 class StartUp {
 
     public app: express.Application;
+    private router;
     private _db: Database;
     public token;
     private payloader: TokenModel;
@@ -22,6 +24,7 @@ class StartUp {
         console.log(' data ', this.token);
         this.app = express();      
         this._db = new Database();
+        this.router = new Router().routerLisk;
         this._db.createConnection();
         this.middler();
         this.routes();
@@ -67,12 +70,9 @@ class StartUp {
 
         // AUTENTICAÇÃO
         this.app.use(Auth.validate);
-        // rotas
-        this.app.route('/api/news').get(NewsController.get);
-        this.app.route('/api/news/:id').get(NewsController.getById);
-        this.app.route('/api/news').post(NewsController.create);
-        this.app.route('/api/news/:id').put(NewsController.update);
-        this.app.route('/api/news/:id').delete(NewsController.delete);
+        this.app.use('/', this.router);
+       
+        
     }
 }
 

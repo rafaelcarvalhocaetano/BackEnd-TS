@@ -11,10 +11,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const NewsServices_1 = require("../services/NewsServices");
 const HttpStatus = require("http-status");
+// import * as redis from 'redis';
 const Utils_1 = require("../utils/Utils");
 class NewsController {
     get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            // let client = redis.createClient();
+            // await client.get('news', (e, replay) => {
+            //     if (replay) {
+            //         console.log(' data 001');
+            //         Utils.sendReponse(res, HttpStatus.OK, JSON.parse(replay));
+            //     } else {
+            //         NewsService.get().then(x => {
+            //             console.log(' data 002');
+            //             client.set('news', JSON.stringify(x));
+            //             client.expire('news', 20);
+            //             Utils.sendReponse(res, HttpStatus.OK, x);
+            //         });
+            //     }
+            // });
             try {
                 let result = yield NewsServices_1.default.get();
                 Utils_1.default.sendReponse(res, HttpStatus.OK, result);
@@ -22,9 +37,6 @@ class NewsController {
             catch (e) {
                 console.error.bind(console, `Erro de ID : ${e}`);
             }
-            // await NewsService.get()
-            //     .then(x => Utils.sendReponse(res, HttpStatus.OK, x))
-            //     .catch(e => console.error.bind(console, `Error ${e}`));
         });
     }
     getById(req, res) {

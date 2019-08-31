@@ -1,5 +1,6 @@
 import NewsService from '../services/NewsServices';
 import * as HttpStatus from 'http-status';
+// import * as redis from 'redis';
 
 import Utils from '../utils/Utils';
 
@@ -7,15 +8,29 @@ class NewsController {
 
     async get(req, res) {
 
+        // let client = redis.createClient();
+
+        // await client.get('news', (e, replay) => {
+        //     if (replay) {
+        //         console.log(' data 001');
+        //         Utils.sendReponse(res, HttpStatus.OK, JSON.parse(replay));
+        //     } else {
+        //         NewsService.get().then(x => {
+        //             console.log(' data 002');
+
+        //             client.set('news', JSON.stringify(x));
+        //             client.expire('news', 20);
+        //             Utils.sendReponse(res, HttpStatus.OK, x);
+        //         });
+        //     }
+        // });
+
         try {
             let result = await NewsService.get();
             Utils.sendReponse(res, HttpStatus.OK, result);
         } catch (e) {
             console.error.bind(console, `Erro de ID : ${e}` );
         }
-        // await NewsService.get()
-        //     .then(x => Utils.sendReponse(res, HttpStatus.OK, x))
-        //     .catch(e => console.error.bind(console, `Error ${e}`));
     }
 
     async getById(req, res) {
