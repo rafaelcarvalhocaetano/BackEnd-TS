@@ -5,3 +5,13 @@ export interface TokenModel {
     username: string,
     email: string
 }
+export interface FieldModel {
+    hat: String,
+    title: String,
+    text: String,
+    author: String,
+    img: String,
+    publishDate: Date,
+    link: String,
+    active: String
+}

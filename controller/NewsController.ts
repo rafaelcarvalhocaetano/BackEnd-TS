@@ -3,6 +3,7 @@ import * as HttpStatus from 'http-status';
 // import * as redis from 'redis';
 
 import Utils from '../utils/Utils';
+import ExportFile from '../utils/ExportFile';
 
 class NewsController {
 
@@ -42,6 +43,16 @@ class NewsController {
             Utils.sendReponse(res, HttpStatus.OK, result);
         } catch (e) {
             console.error.bind(console, `Erro de ID : ${e}` );
+        }
+    }
+
+    async exportToCsv(req, res) {
+        try {
+            let response = await NewsService.get();
+            let fileName = ExportFile.tocsv(response);
+            Utils.sendReponse(res, HttpStatus.OK, req.get('host') + '/exports/' + fileName);
+        } catch (e) {
+            console.error(e);
         }
     }
     
