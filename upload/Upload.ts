@@ -1,6 +1,7 @@
 import * as multer from 'multer';
 
 class Upload {
+
     private storage = multer.diskStorage({
         destination: (req, file, callback) => {
             callback(null, 'uploader/');
@@ -9,7 +10,7 @@ class Upload {
             callback(null, file.originalname);
         }
     });
-    public uploaders = multer({ storage: this.storage });
+    public uploader = multer({ storage: this.storage });
 }
 export default new Upload();
 

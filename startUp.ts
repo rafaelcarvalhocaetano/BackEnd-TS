@@ -2,7 +2,6 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as jwt from 'jsonwebtoken';
-// import * as mongoose from 'mongoose';
 
 import Database from './utils/Database';
 import NewsController from './controller/NewsController';
@@ -57,7 +56,8 @@ class StartUp {
         this.app.route('/').get((req, res) => {
             res.send({versao : '0.0.1'});
         });
-        this.app.route('/file').post(Upload.single('file'), (req, res) => {
+        
+        this.app.route('/uploader').post(Upload.uploader.single('file'), (req, res) => {
             try {
                 res.send('Arquivo enviado com sucesso!!!!');
             } catch (e) {
