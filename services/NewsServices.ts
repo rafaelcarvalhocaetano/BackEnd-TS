@@ -1,9 +1,19 @@
 import NewsRepository from '../repository/NewRepository';
+import NewRepository from '../repository/NewRepository';
 
 class NewsServices {
 
+
+    async search(term, page, perPage) {
+        let search = await NewRepository.find({'title': new RegExp('.*' + term + '*.', 'i')})
+        .skip(page -1 * perPage).limit(2);
+        return search;
+    }
+
     async get() {
-        const result = await NewsRepository.find({});
+        // retorna somente dois registros
+        // const result = await NewsRepository.find({'active': true}, 'title hat img').limit(2);
+        const result = await NewsRepository.find({}).sort({ publishDate: -1});
         return result;
     }
 

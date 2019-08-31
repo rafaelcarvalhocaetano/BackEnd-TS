@@ -7,25 +7,32 @@ import ExportFile from '../utils/ExportFile';
 
 class NewsController {
 
+
+    async search(req, res) {
+        const term = req.params.term;
+        const page = (req.param('page')) ? parseInt(req.param('page')) : 1;
+        const perPage = (req.param('limit')) ? parseInt(req.param('limit')) : 10;
+        try {
+            let result = await NewsService.search(term, page, perPage);
+            Utils.sendReponse(res, HttpStatus.OK, result);
+        } catch (e) {
+            console.error.bind(console, `Erro de ID : ${e}` );
+        }
+    }
+
     async get(req, res) {
-
         // let client = redis.createClient();
-
         // await client.get('news', (e, replay) => {
         //     if (replay) {
-        //         console.log(' data 001');
         //         Utils.sendReponse(res, HttpStatus.OK, JSON.parse(replay));
         //     } else {
         //         NewsService.get().then(x => {
-        //             console.log(' data 002');
-
         //             client.set('news', JSON.stringify(x));
         //             client.expire('news', 20);
         //             Utils.sendReponse(res, HttpStatus.OK, x);
         //         });
         //     }
         // });
-
         try {
             let result = await NewsService.get();
             Utils.sendReponse(res, HttpStatus.OK, result);
